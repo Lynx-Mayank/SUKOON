@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SUKOON — Peer Support Platform</title>
+  <style>
+    /* Theme taken from user's CSS with additions for components */
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg1:#b2f0c4; /* user's chosen palette earlier */
+      --bg2:#a0d8e9;
+      --accent:#5f9ea0;
+      --accent-hover:#518d8e;
+      --card:#fbc6c4;
+      --muted:#666;
+      --glass: rgba(33,45,84,0.06);
+      --glass-strong: rgba(33,45,84,0.12);
+    }
+    body{font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:linear-gradient(135deg,var(--bg1) 0%, #DFF6F5 35%, #FAD6D8 70%, #F6E3D8 100%); color:#1a1a2e; line-height:1.5; padding-bottom:4rem}
+
+    /* Header */
+    .header{background:rgba(33,45,84,0.6);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(0,0,0,0.08)}
+    .logo-text{font-size:1.4rem;font-weight:700;color:white;letter-spacing:1px}
+    nav{display:flex;gap:1rem;align-items:center}
+    nav a{color:#f5f5f7;text-decoration:none;font-weight:600;padding:0.45rem 0.6rem;border-radius:8px}
+    nav a:hover{background:var(--glass)}
+    .login-btn{background-color:var(--accent);color:white;border:none;padding:0.55rem 0.9rem;border-radius:20px;font-weight:700;cursor:pointer}
+    .login-btn:hover{background:var(--accent-hover)}
+
+    /* Layout */
+    .container{max-width:1100px;margin:2rem auto;padding:0 1rem}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:2rem;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,0.06)}
+    .hero-content h1{font-size:1.8rem;color:#1a1a2e;margin-bottom:0.7rem}
+    .hero-content p{color:var(--muted);margin-bottom:1rem}
+    .begin-btn{background:#f9a6a3;border:none;padding:0.6rem 1rem;border-radius:25px;font-weight:700;cursor:pointer}
+    .begin-btn:hover{transform:translateY(-2px)}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;margin-top:1.2rem}
+
+    /* Peer Forum */
+    .card{background:white;padding:1rem;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    .card h2{font-size:1.15rem;margin-bottom:0.6rem}
+    .thread{border-radius:8px;padding:0.75rem;margin-bottom:0.7rem;border:1px solid rgba(0,0,0,0.05);display:flex;justify-content:space-between;align-items:flex-start;gap:0.8rem}
+    .thread .meta{font-size:0.82rem;color:var(--muted)}
+    .new-thread{display:flex;gap:0.6rem}
+    .new-thread input,.new-thread textarea{flex:1;padding:0.6rem;border-radius:8px;border:1px solid rgba(0,0,0,0.08)}
+    .btn{background:var(--accent);color:white;border:none;padding:0.55rem 0.8rem;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn.secondary{background:#f9a6a3;color:#1a1a2e}
+
+    /* Right column */
+    .sidebar .section{margin-bottom:1rem}
+    .sidebar .section h3{font-size:1rem;margin-bottom:0.6rem}
+    .resource-list{display:flex;flex-direction:column;gap:0.6rem}
+    .resource-item{padding:0.6rem;border-radius:8px;border:1px dashed rgba(0,0,0,0.05);background:linear-gradient(180deg, rgba(251,198,196,0.12), rgba(255,255,255,0.01))}
+
+    /* Appointment modal */
+    .modal{position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);z-index:2000}
+    .modal.show{display:flex}
+    .modal .modal-card{width:100%;max-width:520px;background:white;padding:1rem;border-radius:12px}
+    .form-row{display:flex;gap:0.6rem}
+    .form-row .field{flex:1}
+    .small{font-size:0.85rem;color:var(--muted)}
+
+    /* Admin preview */
+    .stats{display:flex;gap:0.6rem}
+    .stat{flex:1;padding:0.8rem;border-radius:8px;background:var(--glass-strong);text-align:center}
+    .stat h4{font-size:1.2rem}
+    .stat p{font-size:0.85rem;color:var(--muted)}
+
+    /* footer */
+    footer{margin-top:2rem;text-align:center;color:var(--muted);font-size:0.9rem}
+
+    /* Responsive */
+    @media(max-width:900px){.grid{grid-template-columns:1fr}.hero{flex-direction:column}}
+
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo-text">SUKOON</div>
+    <nav>
+      <a href="#forum">Peer Forum</a>
+      <a href="#resources">Resources</a>
+      <a href="#appointments">Appointments</a>
+      <a href="#dashboard">Admin</a>
+    </nav>
+    <button class="login-btn" onclick="location.href='login.html'">LOGIN / SIGN UP</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Peer support for higher-ed students</h1>
+        <p>A moderated, stigma-free peer platform with confidential bookings and localized resources.
+        Tailored to the needs described in Problem Statement <strong>#25092</strong>.</p>
+        <div style="display:flex;gap:0.6rem">
+          <button class="begin-btn" onclick="document.getElementById('new-thread-title').focus()">Start a conversation</button>
+          <button class="begin-btn" onclick="openModal('apptModal')">Book confidential appointment</button>
+        </div>
+      </div>
+      <div style="width:220px;text-align:center">
+        <img src="Sukoon logo.png" alt="SUKOON" style="max-width:140px;opacity:0.95;border-radius:8px" />
+        <p class="small" style="margin-top:0.6rem">Localized | Confidential | Student-led</p>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- Left: Forum -->
+      <div>
+        <div class="card" id="forum">
+          <h2>Peer Forum <small class="small">(moderated)</small></h2>
+
+          <div class="new-thread" style="margin:0.6rem 0 1rem 0">
+            <input id="new-thread-title" placeholder="Short title (e.g., 'Exam stress — need tips')" />
+            <button class="btn secondary" id="toggle-anon">Post Anonymously</button>
+          </div>
+          <div style="margin-bottom:0.6rem">
+            <textarea id="new-thread-body" rows="3" placeholder="Describe how you're feeling or ask for support..." style="width:100%;border-radius:8px;padding:0.8rem;border:1px solid rgba(0,0,0,0.06)"></textarea>
+          </div>
+          <div style="display:flex;gap:0.6rem;justify-content:flex-end">
+            <button class="btn" id="post-thread">Post</button>
+          </div>
+
+          <hr style="margin:0.9rem 0;border:none;border-top:1px solid rgba(0,0,0,0.04)" />
+
+          <div id="threads-list">
+            <!-- threads populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Resources & Appointments -->
+      <aside class="sidebar">
+        <div class="card section" id="resources">
+          <h3>Resource Hub</h3>
+          <div class="resource-list">
+            <div class="resource-item">
+              <strong>Quick breathing audio</strong>
+              <div class="small">3 min • Regional language option</div>
+              <div style="margin-top:0.5rem">
+                <audio controls style="width:100%"><source src="#" /></audio>
+              </div>
+            </div>
+            <div class="resource-item">
+              <strong>Guide: Managing exam anxiety (PDF)</strong>
+              <div class="small">Downloadable • Simple steps</div>
+            </div>
+            <div class="resource-item">
+              <strong>Video: Sleep hygiene tips</strong>
+              <div class="small">Subtitles available</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card section" id="appointments">
+          <h3>Confidential Booking</h3>
+          <p class="small">Schedule with on-campus counsellors or helplines. Bookings are stored locally in your browser (demo mode).</p>
+          <div style="display:flex;gap:0.6rem;margin-top:0.6rem">
+            <button class="btn" onclick="openModal('apptModal')">Book Now</button>
+            <button class="btn secondary" onclick="viewBookings()">My Bookings</button>
+          </div>
+        </div>
+
+        <div class="card section" id="dashboard">
+          <h3>Admin Preview</h3>
+          <div class="stats" style="margin-bottom:0.6rem">
+            <div class="stat"><h4 id="stat-threads">0</h4><p>Active threads</p></div>
+            <div class="stat"><h4 id="stat-bookings">0</h4><p>Bookings (demo)</p></div>
+          </div>
+          <p class="small">This admin preview is anonymized. For deployment, implement real analytics and GDPR-style data governance.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <p>SUKOON • Development of a Digital Mental Health Support System for Higher Education — Problem #25092</p>
+    </footer>
+  </main>
+
+  <!-- Appointment Modal -->
+  <div class="modal" id="apptModal" aria-hidden="true">
+    <div class="modal-card">
+      <h3>Confidential Appointment Booking</h3>
+      <p class="small">Your info is stored only locally in demo mode. For production, connect to secure backend and encrypted DB.</p>
+      <div style="margin-top:0.6rem;display:flex;flex-direction:column;gap:0.6rem">
+        <div class="form-row">
+          <div class="field"><input id="stu-name" placeholder="Your name (optional)" /></div>
+          <div class="field"><input id="stu-contact" placeholder="Phone or email (optional)" /></div>
+        </div>
+        <div>
+          <select id="counselor" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+            <option value="helpline">Helpline (Immediate)</option>
+            <option value="campus-1">Campus Counsellor A</option>
+            <option value="campus-2">Campus Counsellor B</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="field"><input id="date" type="date" /></div>
+          <div class="field"><input id="time" type="time" /></div>
+        </div>
+        <div style="display:flex;gap:0.6rem;justify-content:flex-end">
+          <button class="btn secondary" onclick="closeModal('apptModal')">Cancel</button>
+          <button class="btn" id="save-appt">Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple front-end interactivity and localStorage usage for demo
+    const threadsKey = 'sukoon_threads_v1';
+    const bookingsKey = 'sukoon_bookings_v1';
+
+    const threadsList = document.getElementById('threads-list');
+    const postBtn = document.getElementById('post-thread');
+    const anonToggle = document.getElementById('toggle-anon');
+    let postAnon = true;
+
+    if(anonToggle){
+      anonToggle.addEventListener('click', ()=>{
+        postAnon = !postAnon;
+        anonToggle.textContent = postAnon ? 'Post Anonymously' : 'Post with name';
+        anonToggle.classList.toggle('secondary');
+      });
+    }
+
+    function loadThreads(){
+      const raw = localStorage.getItem(threadsKey);
+      const threads = raw ? JSON.parse(raw) : sampleThreads();
+      localStorage.setItem(threadsKey, JSON.stringify(threads));
+      renderThreads(threads);
+      const statThreads = document.getElementById('stat-threads');
+      if(statThreads) statThreads.textContent = threads.length;
+    }
+
+    function sampleThreads(){
+      return [
+        {id:1,title:'Exam stress — cant sleep',body:'I have an exam next week and cannot sleep. Any tips?',author:'Anonymous',time:Date.now()-3600*1000},
+        {id:2,title:'Homesick and lonely',body:'Missing home since college started, anyone else?',author:'Student123',time:Date.now()-7200*1000}
+      ];
+    }
+
+    function renderThreads(threads){
+      if(!threadsList) return;
+      threadsList.innerHTML='';
+      threads.slice().reverse().forEach(t=>{
+        const node = document.createElement('div');
+        node.className='thread';
+        node.innerHTML = `<div style="flex:1"><strong>${escapeHtml(t.title)}</strong><div class="meta">${escapeHtml(t.author)} • ${timeAgo(t.time)}</div><div style="margin-top:0.4rem">${escapeHtml(t.body)}</div></div><div><button class='btn' data-id='${t.id}'>View</button></div>`;
+        const btn = node.querySelector('button');
+        btn.addEventListener('click', ()=> openThread(t.id));
+        threadsList.appendChild(node);
+      })
+    }
+
+    if(postBtn){
+      postBtn.addEventListener('click', ()=>{
+        const titleEl = document.getElementById('new-thread-title');
+        const bodyEl = document.getElementById('new-thread-body');
+        const title = titleEl?.value.trim();
+        const body = bodyEl?.value.trim();
+        if(!title || !body){ alert('Please add a title and message'); return }
+        const raw = localStorage.getItem(threadsKey);
+        const threads = raw ? JSON.parse(raw) : [];
+        const id = threads.length ? Math.max(...threads.map(t=>t.id))+1 : 1;
+        const author = postAnon ? 'Anonymous' : (document.getElementById('stu-name')?.value || 'Student');
+        const item = {id,title,body,author,time:Date.now()};
+        threads.push(item);
+        localStorage.setItem(threadsKey, JSON.stringify(threads));
+        if(titleEl) titleEl.value='';
+        if(bodyEl) bodyEl.value='';
+        loadThreads();
+        updateStats();
+      });
+    }
+
+    function openThread(id){
+      const threads = JSON.parse(localStorage.getItem(threadsKey)||'[]');
+      const t = threads.find(x=>x.id===id);
+      if(!t) return alert('Thread not found');
+      const reply = prompt(`Thread: ${t.title}\n\n${t.body}\n\nReply anonymously or with name? (type your reply)`);
+      if(reply){
+        // Demo-only: replies aren't stored in this local demo. In production, you'd POST to server here.
+        alert('Thanks — your reply was recorded locally. For real deployment, replies would be moderated and stored on the server.');
+      }
+    }
+
+    // Modal helpers
+    function openModal(id){
+      const m = document.getElementById(id);
+      if(!m) return;
+      m.classList.add('show');
+      m.setAttribute('aria-hidden','false');
+    }
+    function closeModal(id){
+      const m = document.getElementById(id);
+      if(!m) return;
+      m.classList.remove('show');
+      m.setAttribute('aria-hidden','true');
+    }
+
+    // Allow closing modal by clicking backdrop
+    document.querySelectorAll('.modal').forEach(m=>{
+      m.addEventListener('click', (e)=>{ if(e.target === m) closeModal(m.id); });
+    });
+
+    // Appointment save
+    const saveApptBtn = document.getElementById('save-appt');
+    if(saveApptBtn){
+      saveApptBtn.addEventListener('click', ()=>{
+        const name = document.getElementById('stu-name')?.value.trim();
+        const contact = document.getElementById('stu-contact')?.value.trim();
+        const counselor = document.getElementById('counselor')?.value;
+        const date = document.getElementById('date')?.value;
+        const time = document.getElementById('time')?.value;
+        if(!date || !time){ alert('Please pick date and time'); return }
+        const raw = localStorage.getItem(bookingsKey);
+        const bookings = raw ? JSON.parse(raw) : [];
+        bookings.push({id:Date.now(),name:name||'Anonymous',contact,counselor,date,time});
+        localStorage.setItem(bookingsKey, JSON.stringify(bookings));
+        closeModal('apptModal');
+        alert('Booking saved locally (demo).');
+        const statBookings = document.getElementById('stat-bookings');
+        if(statBookings) statBookings.textContent = bookings.length;
+      });
+    }
+
+    function viewBookings(){
+      const raw = localStorage.getItem(bookingsKey);
+      const bookings = raw ? JSON.parse(raw) : [];
+      if(!bookings.length) return alert('No bookings found (demo)');
+      let s = 'Your bookings:\n';
+      bookings.forEach(b=> s += `${b.date} ${b.time} — ${b.counselor} (${b.name})\n`);
+      alert(s);
+    }
+
+    function updateStats(){
+      const statThreads = document.getElementById('stat-threads');
+      const statBookings = document.getElementById('stat-bookings');
+      const threads = JSON.parse(localStorage.getItem(threadsKey)||'[]');
+      const bookings = JSON.parse(localStorage.getItem(bookingsKey)||'[]');
+      if(statThreads) statThreads.textContent = threads.length;
+      if(statBookings) statBookings.textContent = bookings.length;
+    }
+
+    /* Utilities */
+    function timeAgo(ts){ const s = Math.floor((Date.now()-ts)/1000); if(s<60) return s+'s ago'; if(s<3600) return Math.floor(s/60)+'m ago'; if(s<86400) return Math.floor(s/3600)+'h ago'; return new Date(ts).toLocaleDateString(); }
+    function escapeHtml(text){ return String(text).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]}); }
+
+    // init
+    loadThreads(); updateStats();
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SUKOON - Book Appointment</title>
+  <style>
+    /* Page background and font */
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #dff6f9 0%, #e6f7f3 50%, #f9e6e9 100%);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Appointment card */
+    .card {
+      background: #ffffffdd;
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      width: 90%;
+      max-width: 500px;
+      padding: 30px 35px;
+      animation: fadeIn 0.7s ease-in;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00695c;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #26a69a;
+      box-shadow: 0 0 0 3px rgba(38,166,154,0.2);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      background: #26a69a;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #00796b;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Book an Appointment 🗓</h1>
+    <form id="appointmentForm">
+      <!-- Name -->
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <!-- Email -->
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <!-- Date -->
+      <label for="date">Choose Date</label>
+      <input type="date" id="date" name="date" required>
+
+      <!-- Time -->
+      <label for="time">Choose Time</label>
+      <input type="time" id="time" name="time" required>
+
+      <!-- Concern -->
+      <label for="concern">Your Concern</label>
+      <textarea id="concern" name="concern" placeholder="Briefly describe your concern..."></textarea>
+
+      <!-- Submit -->
+      <button type="submit">Book Appointment</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("appointmentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("✅ Appointment Request Submitted! Our team will contact you soon.");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
