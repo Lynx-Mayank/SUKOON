@@ -1,0 +1,329 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #C8E8F9 0%, #DFF6F5 35%, #FAD6D8 70%, #F6E3D8 100%);
+  color: #2c2c2c;
+  line-height: 1.6;
+}
+
+/* Header */
+.header {
+  background: rgb(255, 255, 255,0.6);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  letter-spacing: 1px;
+}
+
+.header nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.header nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.header nav a:hover {
+  color: #7c3aed;
+}
+
+.login-btn {
+  background-color: #fbc6c4;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none; /* removes underline */
+  display: inline-block; /* makes it look like button */
+}
+.login-btn:hover {
+  background-color: #f9a8a5;
+}
+
+
+.login-btn:hover {
+  background-color: #f9a6a3;
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 4rem 2rem;
+  text-align: left;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 1.5rem;
+}
+
+.hero-content span {
+  color: #1a1a2e;
+}
+
+.begin-btn {
+  background-color: #f9a6a3;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.begin-btn:hover {
+  background-color: #f78c85;
+  transform: translateY(-2px);
+}
+
+.hero-image {
+  display: flex;           /* Keeps image independent of other text */
+  justify-content: center; /* Center it if needed */
+  align-items: center;
+  max-height: 200px;       /* Constrain the container height */
+}
+
+.hero-image img {
+  height: 500px;  /* Adjust only this value to scale the logo */
+  width: auto;    /* Maintain aspect ratio */
+  flex-shrink: 0; /* Prevent the logo from shrinking or stretching others */
+}
+
+/* Toolkit Section */
+.toolkit-section {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.toolkit-section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+  /* border: 2px solid #0077cc; */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.toolkit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.toolkit-card {
+  background-color: #fbc6c4;
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.toolkit-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #1a1a2e;
+}
+
+.toolkit-card p {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.toolkit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-image img {
+    max-width: 280px;
+    margin-top: 1.5rem;
+  }
+  
+}
+.stories-section {
+  text-align: center;
+}
+
+.stories-section h2{
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+  /* border: 2px solid #0077cc; */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+.story-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem;
+}
+
+.story {
+  background: rgba(255,229,224,0.9);
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 250px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.resources {
+  text-align:center;
+  padding: 3rem 2rem;
+}
+
+.resources h2{
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+  /* border: 2px solid #0077cc; */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+.resources-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+.res-card {
+  background: rgba(255,229,224,0.9);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  width: 220px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.animated-video {
+   text-align:center;
+  padding: 3rem 2rem;
+}
+
+.animated-video h2{
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+  /* border: 2px solid #0077cc; */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+.explore-btn {
+  display: block;
+  margin: 1rem auto;
+  background: #f88473;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+}
+.video-placeholder, .support-placeholder {
+  width: 80%;
+  height: 200px;
+  background: #ffe5e0;
+  margin: 1rem auto;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-weight: 600;
+}
+
+.faq {
+  text-align:center;
+  padding: 3rem 2rem;
+}
+.faq h2{
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+  /* border: 2px solid #0077cc; */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.supported {
+  text-align:center;
+  padding: 3rem 2rem;
+}
+
+.supported h2{
+   font-size: 2rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+  /* border: 2px solid #0077cc; */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+details {
+  background: rgba(255,229,224,0.9);
+  padding: 1rem;
+  margin: 1rem auto;
+  width: 80%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  background: rgba(255,229,224,0.9);
+}
