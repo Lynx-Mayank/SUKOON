@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SUKOON - Book Appointment</title>
+  <style>
+    /* Page background and font */
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #dff6f9 0%, #e6f7f3 50%, #f9e6e9 100%);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #29b6f6;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.9);
+      color: #4fc3f7;
+      transform: translateX(-2px);
+    }
+
+    /* Appointment card */
+    .card {
+      background: #ffffffdd;
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      width: 90%;
+      max-width: 500px;
+      padding: 30px 35px;
+      animation: fadeIn 0.7s ease-in;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4fc3f7;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #29b6f6;
+      margin-bottom: 6px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #4fc3f7;
+      box-shadow: 0 0 0 3px rgba(79,195,247,0.2);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: none;
+    }
+
+    select {
+      cursor: pointer;
+      background-color: white;
+    }
+
+    button {
+      width: 100%;
+      background: #4fc3f7;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #29b6f6;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <!-- Back Button -->
+  <a href="/home" class="back-btn">← Home</a>
+  
+  <div class="card">
+    <h1>Book an Appointment</h1>
+    <form id="appointmentForm">
+      <!-- Name -->
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      
+      <!-- Email -->
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      
+      <!-- Choose Counselor -->
+      <label for="counselor">Choose Counselor</label>
+      <select id="counselor" name="counselor" required>
+        <option value="">Select a counselor</option>
+        <option value="campus-counselor-1">Campus Counselor 1</option>
+        <option value="campus-counselor-2">Campus Counselor 2</option>
+        <option value="campus-counselor-3">Campus Counselor 3</option>
+        <option value="campus-counselor-4">Campus Counselor 4</option>
+        <option value="campus-counselor-5">Campus Counselor 5</option>
+      </select>
+      
+      <!-- Date -->
+      <label for="date">Choose Date</label>
+      <input type="date" id="date" name="date" required>
+      
+      <!-- Time -->
+      <label for="time">Choose Time</label>
+      <select id="time" name="time" required>
+        <option value="">Select a time</option>
+        <option value="10:00">10:00 AM</option>
+        <option value="10:30">10:30 AM</option>
+        <option value="11:00">11:00 AM</option>
+        <option value="11:30">11:30 AM</option>
+        <option value="12:00">12:00 PM</option>
+        <option value="12:30">12:30 PM</option>
+        <option value="13:00">01:00 PM</option>
+        <option value="13:30">01:30 PM</option>
+        <option value="14:00">02:00 PM</option>
+        <option value="14:30">02:30 PM</option>
+        <option value="15:00">03:00 PM</option>
+        <option value="15:30">03:30 PM</option>
+        <option value="16:00">04:00 PM</option>
+        <option value="16:30">04:30 PM</option>
+        <option value="17:00">05:00 PM</option>
+      </select>
+      
+      <!-- Concern -->
+      <label for="concern">Your Concern</label>
+      <textarea id="concern" name="concern" placeholder="Briefly describe your concern..."></textarea>
+      
+      <!-- Submit -->
+      <button type="submit">Book Appointment</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("appointmentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("✅ Appointment Request Submitted! Our team will contact you soon.");
+      this.reset();
+    });
+  </script>
+</body>
+</html>

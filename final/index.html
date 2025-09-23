@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SUKOON</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+  <script src="{{ url_for('static', filename='js/home.js') }}" defer></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-text">SUKOON</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="/chatbot">Chatbot</a>
+      <a href="{{ url_for('appointments') }}">Appointments</a>
+<a href="{{ url_for('resources') }}">Resources</a>
+<a href="{{ url_for('peer_support') }}">Peer Support</a>
+    
+      {% if user %}
+  <span style="color:#00d4ff; font-weight:bold;">Hello, {{ user }}</span>
+  <a href="/logout" class="login-btn">Logout</a>
+{% else %}
+  <a href="/login" class="login-btn">LOGIN/SIGN UP</a>
+{% endif %}
+    </nav>
+    <!-- <a href="login.html" class="login-btn">LOGIN/SIGN UP</a> -->
+  </header>
+<br>
+  <!-- Hero Section --> 
+  <section class="hero">
+    <div class="hero-content">
+      <h1>SUKOON  Where Mental <br>Health Finds Care and Calm..</span></h1>
+      
+    </div>
+    <div class="hero-image">
+      <img src="{{ url_for('static', filename='images/Sukoon_logo.png') }}" alt="Nature Illustration" />
+    </div>
+  </section>
+
+  <!-- Wellness Toolkit -->
+  <section class="toolkit-section">
+    <h2>Your Wellness Toolkit</h2>
+    <div class="toolkit-grid">
+      <div class="toolkit-card">
+        <h3>Wellness Tracking</h3>
+
+        <p>Track your mood, progress, and emotional well-being over time.</p>
+      </div>
+      <div class="toolkit-card">
+        <h3>Confidential Safe Space</h3>
+        <p>We make sure students feel heard, and respected while opening up about their thoughts and feelings.</p>
+      </div>
+      <div class="toolkit-card">
+        <h3>Instant AI Chatbot Support</h3>
+        <p>Get instant support and answers anytime you need it.</p>
+      </div>
+      <div class="toolkit-card">
+        <h3>Appointment Booking</h3>
+        <p>Easily schedule a confidential appointment with a counselor.</p>
+      </div>
+      <div class="toolkit-card">
+        <h3>Resource Hub</h3>
+        <p>Student-focused guides and resources for mental wellness.</p>
+      </div>
+    </div>
+  </section>
+  <!-- Real Stories Section -->
+<section class="stories-section">
+  <h2>Real stories from students</h2>
+  <div class="story-cards">
+    <div class="story">
+      <p>"This platform helped me manage my exam stress!"</p>
+      <h4>- Anonymous</h4>
+    </div>
+    <div class="story">
+      <p>"Sukoon made it easy to book counseling sessions."</p>
+      <h4>- Anonymous</h4>
+    </div>
+    <div class="story">
+      <p>"I felt heard and supported during tough times."</p>
+      <h4>- Anonymous</h4>
+    </div>
+  </div>
+</section>
+
+<!-- Psychoeducational Resources Hub -->
+<section class="resources">
+  <h2>Psychoeducational Resources Hub</h2>
+  <div class="resources-grid">
+    <div class="res-card">
+      <h3>Videos</h3>
+      <ul>
+        <li>5-Minute Guided Meditation</li>
+        <li>Mindfulness for Exams</li>
+        <li>Time Management Hacks</li>
+      </ul>
+    </div>
+    <div class="res-card">
+      <h3>Podcasts / Audio</h3>
+      <ul>
+        <li>Coping with Anxiety Before Exams</li>
+        <li>How to Stay Motivated</li>
+        <li>The Power of Journaling</li>
+      </ul>
+    </div>
+    <div class="res-card">
+      <h3>Guides & Articles</h3>
+      <ul>
+        <li>10 Ways to Beat Procrastination</li>
+        <li>Managing Screen Time for Mental Health</li>
+        <li>Building Resilience in College Life</li>
+      </ul>
+    </div>
+  </div>
+  <button class="explore-btn">
+  <a href="{{ url_for('resources') }}">Explore More →</a>
+  <!-- Explore More --></button>
+</section>
+
+<!-- Animated Video Placeholder -->
+<section class="animated-video">
+  <h2>Animated Video</h2>
+  <div class="video-placeholder">[Your Animated Video Here]</div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq">
+  <h2>FAQ’s</h2>
+  <details>
+    <summary>1. What is Sukoon?</summary>
+    <p>A mental wellness platform designed for students.</p>
+  </details>
+  <details>
+    <summary>2. Is Sukoon confidential?</summary>
+    <p>Yes, your privacy is fully protected.</p>
+  </details>
+  <details>
+    <summary>3. Does it cost anything?</summary>
+    <p>No, Sukoon’s core features are free for students.</p>
+  </details>
+  <details>
+    <summary>4. Can I use Sukoon without therapy?</summary>
+    <p>Absolutely. Sukoon provides self-help tools and resources too.</p>
+  </details>
+  <details>
+    <summary>5. Can Sukoon replace professional therapy?</summary>
+    <p>No, it complements but does not replace professional help.</p>
+  </details>
+</section>
+
+<!-- Supported Students Section -->
+<section class="supported">
+  <h2>How We’ve Supported Students</h2>
+  <div class="support-placeholder">[Add chart, stats, or images here]</div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Sukoon. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

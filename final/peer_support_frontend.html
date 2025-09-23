@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SUKOON — Peer Support Platform</title>
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/peer_support_frontend.css') }}">
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+  <header class="header">
+    <div class="logo-text">SUKOON</div>
+    <nav>
+      <a href="/home">Home</a>
+      <a href="#forum">Peer Forum</a>
+      <a href="/resources">Resources</a>
+      <a href="/appointments">Appointments</a>
+      <!-- <a href="/admindashboard">Admin</a> -->
+      {% if user %}
+  <span style="color:#00d4ff; font-weight:bold;">Hello, {{ user }}</span>
+  <a href="/logout" class="login-btn">Logout</a>
+{% else %}
+  <a href="/login" class="login-btn">LOGIN/SIGN UP</a>
+{% endif %}
+    </nav>
+    <!-- <button class="login-btn" onclick="location.href='login.html'">LOGIN / SIGN UP</button> -->
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Peer support for higher-ed students</h1>
+        <!-- <p>A moderated, stigma-free peer platform with confidential bookings and localized resources.
+        Tailored to the needs described in Problem Statement <strong>#25092</strong>.</p> -->
+        <div style="display:flex;gap:0.6rem">
+          <button class="begin-btn" onclick="document.getElementById('new-thread-title').focus()">Start a conversation</button>
+          <!-- <button class="begin-btn" onclick="openModal('apptModal')">Book confidential appointment</button> -->
+        </div>
+      </div>
+      <div style="width:220px;text-align:center">
+        <img src="{{ url_for('static', filename='images/Sukoon_logo.png') }}" alt="Nature Illustration" style="max-width:200px;opacity:0.95;border-radius:10px" />
+        <p class="small" style="margin-top:0.6rem">Localized | Confidential | Student-led</p>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- Left: Forum -->
+      <div>
+        <div class="card" id="forum">
+          <h2>Peer Forum <small class="small">(moderated)</small></h2>
+
+          <div class="new-thread" style="margin:0.6rem 0 1rem 0">
+            <input id="new-thread-title" placeholder="Short title (e.g., 'Exam stress — need tips')" />
+            <button class="btn secondary" id="toggle-anon">Post Anonymously</button>
+          </div>
+          <div style="margin-bottom:0.6rem">
+            <textarea id="new-thread-body" rows="3" placeholder="Describe how you're feeling or ask for support..." style="width:100%;border-radius:8px;padding:0.8rem;border:1px solid rgba(0,0,0,0.06)"></textarea>
+          </div>
+          <div style="display:flex;gap:0.6rem;justify-content:flex-end">
+            <button class="btn" id="post-thread">Post</button>
+          </div>
+
+          <hr style="margin:0.9rem 0;border:none;border-top:1px solid rgba(0,0,0,0.04)" />
+
+          <div id="threads-list">
+            <!-- threads populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Resources & Appointments -->
+      <aside class="sidebar">
+        <!-- <div class="card section" id="resources">
+          <h3>Resource Hub</h3>
+          <div class="resource-list">
+            <div class="resource-item">
+              <strong>Quick breathing audio</strong>
+              <div class="small">3 min • Regional language option</div>
+              <div style="margin-top:0.5rem">
+                <audio controls style="width:100%"><source src="#" /></audio>
+              </div>
+            </div>
+            <div class="resource-item">
+              <strong>Guide: Managing exam anxiety (PDF)</strong>
+              <div class="small">Downloadable • Simple steps</div>
+            </div>
+            <div class="resource-item">
+              <strong>Video: Sleep hygiene tips</strong>
+              <div class="small">Subtitles available</div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="card section" id="appointments">
+          <h3>Confidential Booking</h3>
+          <p class="small">Schedule with on-campus counsellors or helplines.</p>
+          <div style="display:flex;gap:0.6rem;margin-top:0.6rem">
+            
+            <button class="btn" onclick="openModal('apptModal')">Book Now</button>
+            <!-- <button class="btn secondary" onclick="viewBookings()">My Bookings</button> -->
+          </div>
+        </div>
+
+        <!-- <div class="card section" id="dashboard">
+          <h3>Admin Preview</h3>
+          <div class="stats" style="margin-bottom:0.6rem">
+            <div class="stat"><h4 id="stat-threads">0</h4><p>Active threads</p></div>
+            <div class="stat"><h4 id="stat-bookings">0</h4><p>Bookings (demo)</p></div>
+          </div>
+          <p class="small">This admin preview is anonymized. For deployment, implement real analytics and GDPR-style data governance.</p>
+        </div> -->
+      </aside>
+    </div>
+
+    <footer>
+      <p>SUKOON • Development of a Digital Mental Health Support System for Higher Education — Problem #25092</p>
+    </footer>
+  </main>
+
+  <!-- Appointment Modal -->
+  <div class="modal" id="apptModal" aria-hidden="true">
+    <div class="modal-card">
+      <h3>Confidential Appointment Booking</h3>
+      <p class="small">Your info is stored only locally in demo mode. For production, connect to secure backend and encrypted DB.</p>
+      <div style="margin-top:0.6rem;display:flex;flex-direction:column;gap:0.6rem">
+        <div class="form-row">
+          <div class="field"><input id="stu-name" placeholder="Your name (optional)" /></div>
+          <div class="field"><input id="stu-contact" placeholder="Phone or email (optional)" /></div>
+        </div>
+        <div>
+          <select id="counselor" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+            <option value="helpline">Helpline (Immediate)</option>
+            <option value="campus-1">Campus Counsellor A</option>
+            <option value="campus-2">Campus Counsellor B</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="field"><input id="date" type="date" /></div>
+          <div class="field"><input id="time" type="time" /></div>
+        </div>
+        <div style="display:flex;gap:0.6rem;justify-content:flex-end">
+          <button class="btn secondary" onclick="closeModal('apptModal')">Cancel</button>
+          <button class="btn" id="save-appt">Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

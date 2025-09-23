@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #E6FBFF, #FFBDC0);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(to bottom, #E6FBFF, #FFCDC3);
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    .sidebar h1 { font-size: 22px; font-weight: bold; color: #1D195E; margin-bottom: 30px; }
+    .sidebar a { display: block; text-decoration: none; color: #1D195E; margin-bottom: 15px; padding: 8px 12px; border-radius: 8px; transition: 0.2s; }
+    .sidebar a:hover { font-weight: bold; background: rgba(255,255,255,0.4); }
+    .sidebar a.logout { color: red; }
+
+    /* Main content */
+    .main { flex: 1; padding: 30px; }
+    h2 { color: #1D195E; margin-bottom: 20px; }
+
+    /* Cards */
+    .card {
+  background: #E6FBFF;  /* light blue */
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.assessment-card {
+  background: #E6FBFF;  /* light blue */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+    /* Mood Tracker */
+    .mood-buttons button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #eee;
+      transition: 0.2s;
+    }
+    .mood-buttons button.active {
+      background: #26a69a;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Goals */
+    .goal { margin: 10px 0; display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fafafa; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    .goal button { padding: 5px 10px; margin-left: 10px; border: none; border-radius: 6px; cursor: pointer; }
+    .goal button.done { background: #26a69a; color: #fff; }
+    .goal button.skip { background: #e57373; color: #fff; }
+    .progress-bar { margin-top: 10px; height: 20px; background: #eee; border-radius: 10px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: #26a69a; transition: width 0.3s; }
+
+    /* Assessment Overview */
+    .assessment-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    /* .assessment-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    } */
+    .assessment-card h3 { margin-top: 0; }
+    .phq { border-top: 5px solid #007BFF; }
+    .gad { border-top: 5px solid #9c27b0; }
+    .assessment-card button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .phq button { background: #007BFF; }
+    .gad button { background: #9c27b0; }
+
+    /* Questions */
+    .assessment-questions { margin-top: 20px; }
+    .assessment-question { margin-bottom: 15px; }
+    .assessment-question label { display: block; margin-bottom: 5px; }
+    .result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h1>SUKOON</h1>
+    <!-- <a href="home.html">Home</a> -->
+     <a href="/home">Home</a>
+    <a href="/chatbot">Chatbot</a>
+    <a href="{{ url_for('appointments') }}">Appointments</a>
+<a href="{{ url_for('resources') }}">Resources</a>
+<a href="{{ url_for('peer_support') }}">Peer Support</a>
+    <a href="/logout" class="nav-link logout">Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <h2>Welcome Student</h2>
+
+    <!-- Mood Tracker -->
+    <div class="card">
+      <h3>Select your mood</h3>
+      <div class="mood-buttons">
+        <button onclick="selectMood(this)">Good</button>
+        <button onclick="selectMood(this)">Ok</button>
+        <button onclick="selectMood(this)">Sad</button>
+        <button onclick="selectMood(this)">Tired</button>
+        <button onclick="selectMood(this)">Anxious</button>
+      </div>
+    </div>
+
+    <!-- Goals -->
+    <div class="card">
+      <h3>Today's Goals</h3>
+      <div class="goal">Finish assignment 
+        <div><button class="done" onclick="markGoal(this, true)">✓</button><button class="skip" onclick="markGoal(this, false)">✗</button></div>
+      </div>
+      <div class="goal">30 mins exercise
+        <div><button class="done" onclick="markGoal(this, true)">✓</button><button class="skip" onclick="markGoal(this, false)">✗</button></div>
+      </div>
+      <div class="goal">Meditation 10 mins
+        <div><button class="done" onclick="markGoal(this, true)">✓</button><button class="skip" onclick="markGoal(this, false)">✗</button></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <!-- Assessments -->
+    <div class="card">
+      <h2>Mental Health Assessment 📋</h2>
+      <p>Understand your mental wellness with validated questionnaires</p>
+      <div class="assessment-overview">
+        <div class="assessment-card phq">
+          <h3>PHQ-9</h3>
+          <p>Depression screening tool. <br>9 questions, takes 2-3 minutes.</p>
+          <button onclick="startAssessment('phq')">Start PHQ-9 Assessment</button>
+        </div>
+        <div class="assessment-card gad">
+          <h3>GAD-7</h3>
+          <p>Anxiety screening tool. <br>7 questions, takes 1-2 minutes.</p>
+          <button onclick="startAssessment('gad')">Start GAD-7 Assessment</button>
+        </div>
+      </div>
+      <div id="assessment-container" class="assessment-questions"></div>
+      <div class="result" id="assessment-result"></div>
+    </div>
+  </div>
+
+  <script>
+    // === Mood Selection ===
+    function selectMood(btn) {
+      document.querySelectorAll('.mood-buttons button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // === Goals ===
+    let completedGoals = 0;
+    function markGoal(btn, success) {
+      const goal = btn.closest('.goal');
+      if (success) goal.style.background = "#c8e6c9"; else goal.style.background = "#ffcdd2";
+      goal.querySelectorAll('button').forEach(b => b.disabled = true);
+      completedGoals += success ? 1 : 0;
+      const percent = (completedGoals / document.querySelectorAll('.goal').length) * 100;
+      document.getElementById("progressFill").style.width = percent + "%";
+    }
+
+    // === Assessments ===
+    const phqQuestions = [
+      "Little interest or pleasure in doing things?",
+      "Feeling down, depressed, or hopeless?",
+      "Trouble falling or staying asleep, or sleeping too much?",
+      "Feeling tired or having little energy?",
+      "Poor appetite or overeating?",
+      "Feeling bad about yourself?",
+      "Trouble concentrating on things?",
+      "Moving/speaking slowly or being fidgety?",
+      "Thoughts that you’d be better off dead or of hurting yourself?"
+    ];
+    const gadQuestions = [
+      "Feeling nervous, anxious, or on edge?",
+      "Not being able to stop or control worrying?",
+      "Worrying too much about different things?",
+      "Trouble relaxing?",
+      "Being so restless it is hard to sit still?",
+      "Becoming easily annoyed or irritable?",
+      "Feeling afraid as if something awful might happen?"
+    ];
+    const options = ["0 = Not at all", "1 = Several days", "2 = More than half the days", "3 = Nearly every day"];
+
+    function startAssessment(type) {
+      const container = document.getElementById("assessment-container");
+      const result = document.getElementById("assessment-result");
+      container.innerHTML = "";
+      result.innerHTML = "";
+      const questions = type === "phq" ? phqQuestions : gadQuestions;
+
+      questions.forEach((q, i) => {
+        const div = document.createElement("div");
+        div.className = "assessment-question";
+        div.innerHTML = `<label>${i+1}. ${q}</label><br>
+          ${options.map((opt, idx) => `<label><input type="radio" name="q${i}" value="${idx}"> ${opt}</label>`).join("<br>")}`;
+        container.appendChild(div);
+      });
+      const submitBtn = document.createElement("button");
+      submitBtn.textContent = "Submit " + (type === "phq" ? "PHQ-9" : "GAD-7");
+      submitBtn.onclick = () => submitAssessment(questions.length, type);
+      container.appendChild(submitBtn);
+    }
+
+    function submitAssessment(qCount, type) {
+      let score = 0;
+      for (let i = 0; i < qCount; i++) {
+        const val = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!val) { alert("Please answer all questions."); return; }
+        score += parseInt(val.value);
+      }
+
+      let severity = "";
+      if (type === "phq") {
+        if (score <= 4) severity = "Minimal depression";
+        else if (score <= 9) severity = "Mild depression";
+        else if (score <= 14) severity = "Moderate depression";
+        else if (score <= 19) severity = "Moderately severe depression";
+        else severity = "Severe depression";
+      } else {
+        if (score <= 4) severity = "Minimal anxiety";
+        else if (score <= 9) severity = "Mild anxiety";
+        else if (score <= 14) severity = "Moderate anxiety";
+        else severity = "Severe anxiety";
+      }
+
+      const recs = [
+        "Try mindfulness/meditation daily.",
+        "Engage in light exercise like yoga or walking.",
+        "Keep a consistent sleep schedule.",
+        "Stay connected with friends or family.",
+        "Seek counseling if symptoms persist."
+      ];
+      document.getElementById("assessment-result").innerHTML = 
+        `Total Score: ${score}<br>Severity: ${severity}<br><br>Recommendations:<ul>${recs.map(r=>"<li>"+r+"</li>").join("")}</ul>`;
+    }
+
+    // === Logout Function ===
+// Remove fetch code, just keep this
+document.querySelectorAll(".logout").forEach(btn => {
+  btn.addEventListener("click", function (e) {
+    // let Flask handle redirect
+  });
+});
+
+  </script>
+</body>
+</html>
