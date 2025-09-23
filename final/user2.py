@@ -20,7 +20,7 @@ def after_request(response):
     return response
 
 # Gemini API Key setup
-genai.configure(api_key="AIzaSyCV879y1XfSGT6H4CN4yuPJhKobTHqQ6Dk")
+genai.configure(api_key="")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 # System prompt for SUKOON
@@ -520,4 +520,5 @@ if __name__ == "__main__":
     print("🔑 Login credentials:")
     print("   Student: student@example.com / student123")
     print("   Admin: admin@example.com / admin123")
+
     app.run(debug=True)
