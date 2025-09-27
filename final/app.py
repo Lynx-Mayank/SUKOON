@@ -27,7 +27,7 @@ def after_request(response):
     return response
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 # System prompt for SUKOON
 SYSTEM_PROMPT = """You are SUKOON, a compassionate and supportive AI assistant.
@@ -528,4 +528,5 @@ if __name__ == "__main__":
     print("   Admin: admin@example.com / admin123")
 
     app.run(debug=True)
+
 
