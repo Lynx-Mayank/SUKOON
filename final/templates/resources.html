@@ -32,14 +32,14 @@
     .logo-text {
       font-size: 1.5rem;
       font-weight: bold;
-      color: white;
+      color: rgb(1, 1, 1);
       letter-spacing: 1px;
     }
 
     nav a {
       margin: 0 12px;
       text-decoration: none;
-      color: white;
+      color: rgb(0, 0, 0);
       font-weight: 500;
       padding: 6px 10px;
       border-radius: 6px;
@@ -158,6 +158,27 @@
       font-size: 0.85rem;
     }
 
+    /* Language Selector */
+    .language-selector {
+      text-align: right;
+      margin-bottom: 2rem;
+      padding-right: 1rem;
+    }
+    .language-selector label {
+      font-weight: bold;
+      color: #1D195E;
+      margin-right: 10px;
+    }
+    .language-selector select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 2px solid #1D195E;
+      background: white;
+      color: #1D195E;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
     /* Additional resources */
     .additional-resources {
       background: white;
@@ -225,6 +246,10 @@
       .resources-hero h1 {
         font-size: 1.8rem;
       }
+      .language-selector {
+        text-align: center;
+        padding-right: 0;
+      }
     }
   </style>
 </head>
@@ -249,7 +274,6 @@
     <a href="{{ url_for('login') }}" class="login-btn">LOGIN / SIGN UP</a>
   {% endif %} -->
 </header>
-
 
   <main class="container">
     <!-- Hero -->
@@ -289,33 +313,99 @@
       </div>
     </div>
 
+    <!-- Language Dropdown - Now positioned to the right -->
+    <div class="language-selector">
+      <label for="language">🌐 Select Language: </label>
+      <select id="language" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="mr">मराठी (Marathi)</option>
+        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+        <option value="ta">தமிழ் (Tamil)</option>
+        <option value="te">తెలుగు (Telugu)</option>
+        <option value="ml">മലയാളം (Malayalam)</option>
+        <option value="gu">ગુજરાતી (Gujarati)</option>
+      </select>
+    </div>
+
+    <!-- Mental Health Problems -->
+    <section class="problems-section" style="margin:2rem 0;">
+      <h2 style="text-align:center; color:#1D195E; margin-bottom:1.5rem;">
+        Common Mental Health Problems
+      </h2>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem;">
+        <!-- Problem 1 -->
+        <div class="problem-card" style="background:#fff; padding:1.2rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <h3 id="depression-title" style="color:#1D195E;">Depression</h3>
+          <p id="depression-symptoms"><b>Symptoms:</b> Persistent sadness, loss of interest, fatigue, sleep problems.</p>
+          <p id="depression-cure"><b>Cure/Help:</b> Therapy, medication, regular exercise, social support.</p>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="problem-card" style="background:#fff; padding:1.2rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <h3 id="anxiety-title" style="color:#1D195E;">Anxiety</h3>
+          <p id="anxiety-symptoms"><b>Symptoms:</b> Excessive worry, restlessness, rapid heartbeat, sweating.</p>
+          <p id="anxiety-cure"><b>Cure/Help:</b> Breathing exercises, therapy, mindfulness, healthy lifestyle.</p>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="problem-card" style="background:#fff; padding:1.2rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <h3 id="stress-title" style="color:#1D195E;">Stress</h3>
+          <p id="stress-symptoms"><b>Symptoms:</b> Irritability, tension, headaches, difficulty concentrating.</p>
+          <p id="stress-cure"><b>Cure/Help:</b> Relaxation techniques, time management, exercise, support groups.</p>
+        </div>
+
+        <!-- Problem 4 -->
+        <div class="problem-card" style="background:#fff; padding:1.2rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <h3 id="ptsd-title" style="color:#1D195E;">PTSD</h3>
+          <p id="ptsd-symptoms"><b>Symptoms:</b> Flashbacks, nightmares, severe anxiety, uncontrollable thoughts.</p>
+          <p id="ptsd-cure"><b>Cure/Help:</b> Therapy (CBT/EMDR), medication, support groups, relaxation.</p>
+        </div>
+
+        <!-- Problem 5 -->
+        <div class="problem-card" style="background:#fff; padding:1.2rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <h3 id="bipolar-title" style="color:#1D195E;">Bipolar Disorder</h3>
+          <p id="bipolar-symptoms"><b>Symptoms:</b> Extreme mood swings, manic episodes, depression phases.</p>
+          <p id="bipolar-cure"><b>Cure/Help:</b> Medication, therapy, stable routine, lifestyle management.</p>
+        </div>
+
+        <!-- Problem 6 -->
+        <div class="problem-card" style="background:#fff; padding:1.2rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <h3 id="ocd-title" style="color:#1D195E;">OCD</h3>
+          <p id="ocd-symptoms"><b>Symptoms:</b> Unwanted thoughts, compulsive behaviors, anxiety relief rituals.</p>
+          <p id="ocd-cure"><b>Cure/Help:</b> Exposure therapy, medication, mindfulness, structured routine.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Additional Resources -->
     <div class="additional-resources">
       <h3> Additional Support Resources</h3>
       <div class="resource-links">
         <a href="#" class="resource-link">
-          <div class="resource-icon"></div>
+          <div class="resource-icon">🧘</div>
           <div class="resource-link-content">
             <h4>Mindfulness & Meditation</h4>
             <p>Guided meditation sessions and mindfulness exercises</p>
           </div>
         </a>
         <a href="#" class="resource-link">
-          <div class="resource-icon"></div>
+          <div class="resource-icon">📊</div>
           <div class="resource-link-content">
             <h4>Self-Assessment Tools</h4>
             <p>Check your mental health and track your progress</p>
           </div>
         </a>
         <a href="#" class="resource-link">
-          <div class="resource-icon"></div>
+          <div class="resource-icon">📚</div>
           <div class="resource-link-content">
             <h4>Study & Academic Tips</h4>
             <p>Manage academic stress and improve study habits</p>
           </div>
         </a>
         <a href="#" class="resource-link">
-          <div class="resource-icon"></div>
+          <div class="resource-icon">😴</div>
           <div class="resource-link-content">
             <h4>Sleep Hygiene Guide</h4>
             <p>Tips for better sleep and managing insomnia</p>
@@ -328,5 +418,311 @@
       <p>SUKOON Resources • Remember: You're not alone in this journey. Every step toward wellness matters.</p>
     </footer>
   </main>
+
+  <script>
+const translations = {
+  en: {
+    Depression: {
+      title: "Depression",
+      symptoms: "Persistent sadness, loss of interest, fatigue, hopelessness, disturbed sleep or appetite.",
+      cure: "Counseling, therapy, medication (if prescribed), regular exercise, social support."
+    },
+    Anxiety: {
+      title: "Anxiety",
+      symptoms: "Restlessness, excessive worry, rapid heartbeat, sweating, difficulty concentrating.",
+      cure: "Relaxation exercises, mindfulness, CBT therapy, breathing techniques, professional help."
+    },
+    Stress: {
+      title: "Stress",
+      symptoms: "Irritability, sleep problems, headaches, muscle tension, lack of focus.",
+      cure: "Time management, relaxation, physical activity, meditation, healthy lifestyle."
+    },
+    PTSD: {
+      title: "Post-Traumatic Stress Disorder (PTSD)",
+      symptoms: "Flashbacks, nightmares, avoidance, severe anxiety, mood swings.",
+      cure: "Professional counseling, trauma-focused therapy, support groups, medication if required."
+    },
+    Bipolar: {
+      title: "Bipolar Disorder",
+      symptoms: "Extreme mood swings, episodes of mania and depression, impulsive behavior.",
+      cure: "Mood stabilizers, psychotherapy, regular routines, family support."
+    },
+    OCD: {
+      title: "Obsessive Compulsive Disorder (OCD)",
+      symptoms: "Repetitive thoughts, compulsive rituals, fear of contamination, checking behavior.",
+      cure: "CBT therapy (ERP), medication, stress management, professional help."
+    }
+  },
+
+  hi: {
+    Depression: {
+      title: "अवसाद (Depression)",
+      symptoms: "लगातार उदासी, रुचि की कमी, थकान, निराशा, नींद या भूख की समस्या।",
+      cure: "काउंसलिंग, थेरेपी, दवाइयाँ (यदि डॉक्टर द्वारा बताई गई हों), व्यायाम, सामाजिक समर्थन।"
+    },
+    Anxiety: {
+      title: "चिंता (Anxiety)",
+      symptoms: "बेचैनी, अत्यधिक चिंता, तेज धड़कन, पसीना आना, ध्यान केंद्रित करने में कठिनाई।",
+      cure: "आराम तकनीकें, माइंडफुलनेस, CBT थेरेपी, साँस लेने की तकनीकें, पेशेवर सहायता।"
+    },
+    Stress: {
+      title: "तनाव (Stress)",
+      symptoms: "चिड़चिड़ापन, नींद की समस्या, सिरदर्द, मांसपेशियों में खिंचाव, ध्यान में कमी।",
+      cure: "समय प्रबंधन, विश्राम, व्यायाम, ध्यान, स्वस्थ जीवनशैली।"
+    },
+    PTSD: {
+      title: "आघातोत्तर तनाव विकार (PTSD)",
+      symptoms: "दुःस्वप्न, बार-बार याद आना, चिंता, मूड में बदलाव।",
+      cure: "काउंसलिंग, ट्रॉमा-फोकस्ड थेरेपी, सपोर्ट ग्रुप, दवाइयाँ।"
+    },
+    Bipolar: {
+      title: "द्विध्रुवी विकार (Bipolar Disorder)",
+      symptoms: "अत्यधिक मूड स्विंग्स, अवसाद और मैनिया के एपिसोड, आवेगपूर्ण व्यवहार।",
+      cure: "मूड स्टेबलाइज़र, साइकोथेरेपी, नियमित दिनचर्या, परिवार का सहयोग।"
+    },
+    OCD: {
+      title: "जुनूनी-बाध्यकारी विकार (OCD)",
+      symptoms: "बार-बार विचार आना, ज़बरदस्ती आदतें, बार-बार जाँच करना।",
+      cure: "CBT थेरेपी (ERP), दवाइयाँ, तनाव प्रबंधन, पेशेवर मदद।"
+    }
+  },
+
+  mr: {
+    Depression: {
+      title: "नैराश्य (Depression)",
+      symptoms: "सतत उदासी, आवडीचा अभाव, थकवा, निराशा, झोप किंवा भूक न लागणे.",
+      cure: "कौन्सेलिंग, थेरपी, औषधे (डॉक्टरांनी सांगितल्यास), व्यायाम, सामाजिक आधार."
+    },
+    Anxiety: {
+      title: "उत्कंठा (Anxiety)",
+      symptoms: "बेचैनी, जास्त काळजी, हृदयाचे ठोके वाढणे, घाम येणे, लक्ष केंद्रित न होणे.",
+      cure: "विश्रांती तंत्रे, ध्यान, CBT थेरपी, श्वासोच्छ्वास तंत्रे, व्यावसायिक मदत."
+    },
+    Stress: {
+      title: "ताण (Stress)",
+      symptoms: "चिडचिडेपणा, झोपेचे विकार, डोकेदुखी, स्नायू ताण, लक्ष कमी होणे.",
+      cure: "वेळ व्यवस्थापन, विश्रांती, व्यायाम, ध्यान, निरोगी जीवनशैली."
+    },
+    PTSD: {
+      title: "आघातानंतरचा ताण विकार (PTSD)",
+      symptoms: "दुःस्वप्ने, भयानक आठवणी, चिंता, मूड बदल.",
+      cure: "कौन्सेलिंग, ट्रॉमा फोकस्ड थेरपी, सपोर्ट ग्रुप, औषधे."
+    },
+    Bipolar: {
+      title: "द्विध्रुवी विकार (Bipolar Disorder)",
+      symptoms: "अत्यंत मूड स्विंग्स, नैराश्य आणि मॅनिया एपिसोड, आवेगपूर्ण वर्तन.",
+      cure: "मूड स्टेबलायझर्स, मानसोपचार, नियमित दिनचर्या, कौटुंबिक आधार."
+    },
+    OCD: {
+      title: "जबरदस्ती विकार (OCD)",
+      symptoms: "पुन्हा पुन्हा विचार येणे, जबरदस्ती सवयी, वारंवार तपासणे.",
+      cure: "CBT थेरपी (ERP), औषधे, ताण व्यवस्थापन, व्यावसायिक मदत."
+    }
+  },
+
+  kn: {
+    Depression: {
+      title: "अवसाद (Depression)",
+      symptoms: "ನಿರಂತರ ದುಃಖ, ಆಸಕ್ತಿ ಇಲ್ಲದಿರುವುದು, ದಣಿವು, ನಿರಾಶೆ, ನಿದ್ರೆ/ಆಹಾರ ಸಮಸ್ಯೆಗಳು.",
+      cure: "ಕೌನ್ಸೆಲಿಂಗ್, ಥೆರಪಿ, ಔಷಧಿಗಳು (ವೈದ್ಯರು ಹೇಳಿದರೆ), ವ್ಯಾಯಾಮ, ಸಾಮಾಜಿಕ ಬೆಂಬಲ."
+    },
+    Anxiety: {
+      title: "ಕಳವಳ (Anxiety)",
+      symptoms: "ಅಶಾಂತಿ, ಹೆಚ್ಚು ಚಿಂತನೆ, ಹೃದಯ ಬಡಿತ, ಬೆವರು, ಗಮನ ಕೆಡಸು.",
+      cure: "ಶಾಂತಿ ತಂತ್ರಗಳು, ಮನೋನಿಬಂಧನ, CBT ಥೆರಪಿ, ಉಸಿರಾಟ ವ್ಯಾಯಾಮ, ವೃತ್ತಿಪರ ಸಹಾಯ."
+    },
+    Stress: {
+      title: "ಒತ್ತಡ (Stress)",
+      symptoms: "ಚಿಡಿಚಿಡಿತ, ನಿದ್ರೆ ಸಮಸ್ಯೆಗಳು, ತಲೆನೋವು, ಸ್ನಾಯು ಒತ್ತಡ, ಗಮನ ಕೆಳವು.",
+      cure: "ಸಮಯ ನಿರ್ವಹಣೆ, ವಿಶ್ರಾಂತಿ, ವ್ಯಾಯಾಮ, ಧ್ಯಾನ, ಆರೋಗ್ಯಕರ ಜೀವನಶೈಲಿ."
+    },
+    PTSD: {
+      title: "ತ್ರಾಸೋತ್ತರ ಒತ್ತಡ ವ್ಯಾಧಿ (PTSD)",
+      symptoms: "ದುಷ್ಟಸ್ವಪ್ನಗಳು, ನೆನಪುಗಳು, ಆತಂಕ, ಮನಸ್ಥಿತಿ ಬದಲಾವಣೆ.",
+      cure: "ಕೌನ್ಸೆಲಿಂಗ್, ಟ್ರಾಮಾ ಥೆರಪಿ, ಬೆಂಬಲ ಗುಂಪುಗಳು, ಔಷಧಿಗಳು."
+    },
+    Bipolar: {
+      title: "ದ್ವಿಧ್ರುವಿ ಅಸ್ವಸ್ಥತೆ (Bipolar Disorder)",
+      symptoms: "ಅತಿ ಹೆಚ್ಚು ಮನೋಭಾವ ಬದಲಾವಣೆಗಳು, ಅವಸಾದ ಮತ್ತು ಮ್ಯಾನಿಯಾ, ತುರ್ತು ವರ್ತನೆ.",
+      cure: "ಮೂಡ್ ಸ್ಟೇಬಿಲೈಸರ್ಸ್, ಸೈಕೋಥೆರಪಿ, ನಿಯಮಿತ ಜೀವನಶೈಲಿ, ಕುಟುಂಬದ ಬೆಂಬಲ."
+    },
+    OCD: {
+      title: "ಓಸಿಡಿ (OCD)",
+      symptoms: "ಮರುಮರು ಆಲೋಚನೆಗಳು, ಬಲವಂತದ ಅಭ್ಯಾಸಗಳು, ಮರುಮರು ಪರಿಶೀಲನೆ.",
+      cure: "CBT ಥೆರಪಿ (ERP), ಔಷಧಿಗಳು, ಒತ್ತಡ ನಿರ್ವಹಣೆ, ವೃತ್ತಿಪರ ಸಹಾಯ."
+    }
+  },
+
+  ta: {
+    Depression: {
+      title: "மனக்கசப்பு (Depression)",
+      symptoms: "நிரந்தர சோகம், ஆர்வமின்மை, சோர்வு, நம்பிக்கையின்மை, தூக்க/பசி பிரச்சினைகள்.",
+      cure: "கவுன்சிலிங், சிகிச்சை, மருந்துகள், உடற்பயிற்சி, சமூக ஆதரவு."
+    },
+    Anxiety: {
+      title: "கவலை (Anxiety)",
+      symptoms: "அமைதியின்மை, அதிக சிந்தனை, இதயத் துடிப்பு, வியர்வை, கவனம் குறைவு.",
+      cure: "சாந்திமுறைகள், மைண்ட்புல்னஸ், CBT சிகிச்சை, சுவாச பயிற்சி, தொழில்முறை உதவி."
+    },
+    Stress: {
+      title: "மனஅழுத்தம் (Stress)",
+      symptoms: "எரிச்சல், தூக்க பிரச்சினைகள், தலைவலி, தசை வலி, கவனம் குறைவு.",
+      cure: "நேர மேலாண்மை, ஓய்வு, உடற்பயிற்சி, தியானம், ஆரோக்கியமான வாழ்க்கைமுறை."
+    },
+    PTSD: {
+      title: "பிற-தாக்குதல் மனஅழுத்தம் (PTSD)",
+      symptoms: "துயரக் கனவு, நினைவுகள், பயம், மனநிலை மாற்றம்.",
+      cure: "கவுன்சிலிங், ட்ராமா சிகிச்சை, ஆதரவு குழுக்கள், மருந்துகள்."
+    },
+    Bipolar: {
+      title: "இருமுனை மனநிலை (Bipolar Disorder)",
+      symptoms: "மிகுந்த மனநிலை மாற்றங்கள், மனஅழுத்தம் மற்றும் மானியா, திடீர் நடத்தை.",
+      cure: "மருந்துகள், சிகிச்சை, ஒழுங்கான வாழ்க்கை, குடும்ப ஆதரவு."
+    },
+    OCD: {
+      title: "ஒசிடி (OCD)",
+      symptoms: "மீண்டும் மீண்டும் எண்ணங்கள், கட்டாய பழக்கங்கள், சோதனை செய்யும் பழக்கம்.",
+      cure: "CBT சிகிச்சை (ERP), மருந்துகள், மனஅழுத்த மேலாண்மை."
+    }
+  },
+
+  te: {
+    Depression: {
+      title: "నిరాశ (Depression)",
+      symptoms: "నిరంతర దుఃఖం, ఆసక్తి కోల్పోవడం, అలసట, నిద్ర/ఆహార సమస్యలు.",
+      cure: "కౌన్సెలింగ్, థెరపీ, మందులు, వ్యాయామం, సామాజిక మద్దతు."
+    },
+    Anxiety: {
+      title: "ఆందోళన (Anxiety)",
+      symptoms: "అశాంతి, అధిక ఆందోళన, గుండె వేగంగా కొట్టుకోవడం, చెమటలు, దృష్టి లోపం.",
+      cure: "విశ్రాంతి వ్యాయామాలు, మైండ్‌ఫుల్‌నెస్, CBT థెరపీ, శ్వాస సాంకేతికతలు."
+    },
+    Stress: {
+      title: "మానసిక ఒత్తిడి (Stress)",
+      symptoms: "చిడతనం, నిద్ర సమస్యలు, తలనొప్పి, కండరాల ఒత్తిడి, దృష్టి లోపం.",
+      cure: "సమయ నిర్వహణ, వ్యాయామం, ధ్యానం, ఆరోగ్యకరమైన జీవన శైలి."
+    },
+    PTSD: {
+      title: "ఆఘాతం తర్వాత ఒత్తిడి (PTSD)",
+      symptoms: "కలలు, జ్ఞాపకాలు, భయం, మూడ్ మార్పులు.",
+      cure: "కౌన్సెలింగ్, ట్రామా థెరపీ, మద్దతు సమూహాలు, మందులు."
+    },
+    Bipolar: {
+      title: "బైపోలార్ డిజార్డర్ (Bipolar Disorder)",
+      symptoms: "అత్యధిక మూడ్ స్వింగ్స్, నిరాశ మరియు మానియా, ఉత్సాహపు ప్రవర్తన.",
+      cure: "మూడ్ స్థిరీకరణ మందులు, సైకోథెరపీ, కుటుంబ మద్దతు."
+    },
+    OCD: {
+      title: "ఓసిడి (OCD)",
+      symptoms: "పునరావృత ఆలోచనలు, బలవంతపు అలవాట్లు, పునరావృత తనిఖీలు.",
+      cure: "CBT థెరపీ (ERP), మందులు, ఒత్తిడి నిర్వహణ."
+    }
+  },
+
+  ml: {
+    Depression: {
+      title: "അവസാദം (Depression)",
+      symptoms: "തുടർച്ചയായ ദുഃഖം, താത്പര്യമില്ലായ്മ, ക്ഷീണം, ഉറക്ക/ഭക്ഷണ പ്രശ്നങ്ങൾ.",
+      cure: "കൗൺസലിംഗ്, തെറാപ്പി, മരുന്നുകൾ, വ്യായാമം, സാമൂഹിക പിന്തുണ."
+    },
+    Anxiety: {
+      title: "ഉത്കണ്ഠ (Anxiety)",
+      symptoms: "അശാന്തി, അമിതമായ ആശങ്ക, ഹൃദയമിടിപ്പ്, വിയർപ്പുക, ശ്രദ്ധക്കുറവ്.",
+      cure: "ആശ്വാസ സാങ്കേതികങ്ങൾ, മാനസികാഭ്യാസം, CBT തെറാപ്പി, ശ്വസന പരിശീലനങ്ങൾ."
+    },
+    Stress: {
+      title: "സമ്മർദ്ദം (Stress)",
+      symptoms: "കോപം, ഉറക്ക പ്രശ്നങ്ങൾ, തലവേദന, പേശി വേദന, ശ്രദ്ധക്കുറവ്.",
+      cure: "സമയ മാനേജ്മെന്റ്, വിശ്രമം, ധ്യാനം, ആരോഗ്യകരമായ ജീവിതശൈലി."
+    },
+    PTSD: {
+      title: "പോസ്റ്റ് ട്രോമാറ്റിക് സമ്മർദ്ദം (PTSD)",
+      symptoms: "ദുഃസ്വപ്നങ്ങൾ, ഓർമ്മകൾ, ഭയം, മാനസികാവസ്ഥ മാറ്റങ്ങൾ.",
+      cure: "കൗൺസലിംഗ്, ട്രോമ തെറാപ്പി, പിന്തുണാ ഗ്രൂപ്പുകൾ, മരുന്നുകൾ."
+    },
+    Bipolar: {
+      title: "ബൈപോളാർ ഡിസോർഡർ",
+      symptoms: "അതിർത്തിമാറ്റങ്ങൾ, ഡിപ്രഷൻ & മാനിയ, ആവേശപരമായ പെരുമാറ്റം.",
+      cure: "മരുന്നുകൾ, സൈക്കോതെറാപ്പി, കുടുംബ പിന്തുണ."
+    },
+    OCD: {
+      title: "ഓസിഡി (OCD)",
+      symptoms: "പുനരാവർത്തിച്ച ചിന്തകൾ, നിർബന്ധിത പ്രവൃത്തികൾ, പരിശോധന.",
+      cure: "CBT തെറാപ്പി (ERP), മരുന്നുകൾ, സമ്മർദ്ദ നിയന്ത്രണം."
+    }
+  },
+
+  gu: {
+    Depression: {
+      title: "ઉદાસીનતા (Depression)",
+      symptoms: "સતત દુઃખ, રસમાં ઘટાડો, થાક, નિરાશા, ઊંઘ/ભૂખ સમસ્યાઓ.",
+      cure: "કાઉન્સેલિંગ, થેરાપી, દવાઓ, વ્યાયામ, સામાજિક સહાય."
+    },
+    Anxiety: {
+      title: "ચિંતા (Anxiety)",
+      symptoms: "બેચેની, વધારે ચિંતા, હૃદયની ધબકારા, પસીનો, ધ્યાન કેન્દ્રિત કરવામાં મુશ્કેલી.",
+      cure: "વિશ્વામ કસરતો, માઇન્ડફુલનેસ, CBT થેરાપી, શ્વાસ ટેક્નિક્સ."
+    },
+    Stress: {
+      title: "તાણ (Stress)",
+      symptoms: "ચીડિયાપણું, ઊંઘની સમસ્યાઓ, માથાનો દુખાવો, સ્નાયુઓમાં તાણ.",
+      cure: "સમય મેનેજમેન્ટ, વ્યાયામ, ધ્યાન, સ્વસ્થ જીવનશૈલી."
+    },
+    PTSD: {
+      title: "આઘાત પછીનો તાણ (PTSD)",
+      symptoms: "ડરામણા સપના, યાદો, ભય, મૂડ સ્વિંગ્સ.",
+      cure: "કાઉન્સેલિંગ, ટ્રોમા થેરાપી, સહાયતા જૂથો, દવાઓ."
+    },
+    Bipolar: {
+      title: "બાયપોલર ડિસઓર્ડર",
+      symptoms: "અતિશય મૂડ ફેરફાર, ડિપ્રેશન અને મેનિયા, અચાનક વર્તન.",
+      cure: "મૂડ સ્ટેબિલાઇઝર્સ, થેરાપી, પરિવારનો સહકાર."
+    },
+    OCD: {
+      title: "ઓસીડી (OCD)",
+      symptoms: "વારંવાર વિચારો, ફરજીયાત આદતો, ચકાસણી કરવી.",
+      cure: "CBT થેરાપી (ERP), દવાઓ, તાણ મેનેજમેન્ટ."
+    }
+  }
+};
+
+// Function to change language
+function changeLanguage() {
+  const selectedLang = document.getElementById('language').value;
+  const langData = translations[selectedLang];
+  
+  if (!langData) return;
+
+  // Update Depression
+  document.getElementById('depression-title').textContent = langData.Depression.title;
+  document.getElementById('depression-symptoms').innerHTML = '<b>Symptoms:</b> ' + langData.Depression.symptoms;
+  document.getElementById('depression-cure').innerHTML = '<b>Cure/Help:</b> ' + langData.Depression.cure;
+
+  // Update Anxiety
+  document.getElementById('anxiety-title').textContent = langData.Anxiety.title;
+  document.getElementById('anxiety-symptoms').innerHTML = '<b>Symptoms:</b> ' + langData.Anxiety.symptoms;
+  document.getElementById('anxiety-cure').innerHTML = '<b>Cure/Help:</b> ' + langData.Anxiety.cure;
+
+  // Update Stress
+  document.getElementById('stress-title').textContent = langData.Stress.title;
+  document.getElementById('stress-symptoms').innerHTML = '<b>Symptoms:</b> ' + langData.Stress.symptoms;
+  document.getElementById('stress-cure').innerHTML = '<b>Cure/Help:</b> ' + langData.Stress.cure;
+
+  // Update PTSD
+  document.getElementById('ptsd-title').textContent = langData.PTSD.title;
+  document.getElementById('ptsd-symptoms').innerHTML = '<b>Symptoms:</b> ' + langData.PTSD.symptoms;
+  document.getElementById('ptsd-cure').innerHTML = '<b>Cure/Help:</b> ' + langData.PTSD.cure;
+
+  // Update Bipolar
+  document.getElementById('bipolar-title').textContent = langData.Bipolar.title;
+  document.getElementById('bipolar-symptoms').innerHTML = '<b>Symptoms:</b> ' + langData.Bipolar.symptoms;
+  document.getElementById('bipolar-cure').innerHTML = '<b>Cure/Help:</b> ' + langData.Bipolar.cure;
+
+  // Update OCD
+  document.getElementById('ocd-title').textContent = langData.OCD.title;
+  document.getElementById('ocd-symptoms').innerHTML = '<b>Symptoms:</b> ' + langData.OCD.symptoms;
+  document.getElementById('ocd-cure').innerHTML = '<b>Cure/Help:</b> ' + langData.OCD.cure;
+}
+  </script>
 </body>
 </html>
