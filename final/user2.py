@@ -1,8 +1,15 @@
 from flask import Flask, request, session, redirect, render_template, jsonify
 import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # load .env file
+
 
 app = Flask(__name__)
-app.secret_key = "replace-with-a-secure-random-secret"
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "fallback-secret")
+
+
 
 # Simple user credentials - no hashing for prototype
 STUDENT_EMAIL = "student@example.com"
@@ -19,8 +26,7 @@ def after_request(response):
     response.headers["Expires"] = "0"
     return response
 
-# Gemini API Key setup
-genai.configure(api_key="")
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 # System prompt for SUKOON
@@ -522,3 +528,4 @@ if __name__ == "__main__":
     print("   Admin: admin@example.com / admin123")
 
     app.run(debug=True)
+
